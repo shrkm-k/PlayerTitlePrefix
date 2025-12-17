@@ -1,0 +1,44 @@
+plugin_name: "<aqua>[PlayerTitlePrefix]</aqua> "
+load_plugin: "PlayerTitlePrefix is successfully loaded."
+disabled_plugin: "PlayerTitlePrefix is successfully disabled."
+langFolder_create_failed: "Creating lang Folder is failed."
+
+#commands
+show_all_commands: "【ALL COMMANDS】"
+wrong_args: "<red>Args is wrong.</red>"
+plugin_reload: "<green>Config reloaded!</green>"
+not_found: "<red>%key% not found.</red>"
+lang_change_successfully: "Language changed successfully!"
+
+#Config_Dialog
+config_dialog: "Config"
+config_dialog_body: "Config Settings."
+dialog_confirm: "<aqua>confirm</aqua>"
+dialog_confirm_desc: "click to confirm"
+dialog_cancel: "<red>cancel</red>"
+dialog_cancel_desc: "back to Minecraft"
+#Adding_Dialog
+add_title_dialog: "Adding Titles"
+add_title_body: "Please enter right value to the each input form."
+add_title_input_wrong: "<red>Input value was wrong.</red>"
+add_title_input_successfully: "The New Title: <title> was successfully added!"
+title_key_desc: "Title key (Required)"
+title_name_desc: "Display Name (Required)"
+title_permission_desc: "Title Permission (Optional)"
+title_color_desc: "Title Color"
+title_is_admin: "Is this title for admin?"
+the_key_already_exist: "<red>The Title Key is already exist.</red>"
+#Removing_Dialog
+remove_title_dialog: "Removing Titles"
+remove_title_body: "Please select to remove a title."
+title_dialog_select: "<aqua>Select Title</aqua>"
+remove_title_successfully: "The Title was successfully removed."
+
+#InventoryGUI
+titles_inv_name: "Title Selection"
+num_of_player_have_titles: "Title Holding Rate:"
+have_not_yet_title: "You don't have this title yet."
+inv_next_arrow: "Next Page"
+inv_pre_arrow: "Previous Page"
+player_skull_name: "'s Titles"
+title_page: "Page:"

@@ -1,0 +1,46 @@
+plugin_name: "<aqua>[称号プラグイン]</aqua> "
+load_plugin: "PlayerTitlePrefixが正常に読み込まれました。"
+disabled_plugin: "PlayerTitlePrefixが正常に終了しました。"
+langFolder_create_failed: "langフォルダの作成に失敗しました。"
+
+#commands
+show_all_commands: "【コマンド一覧】"
+wrong_args: "<red>引数が間違っています。</red>"
+plugin_reload: "<green>コンフィグをリロードしました。</green>"
+not_found: "<red>%key%が見つかりませんでした。</red>"
+lang_change_successfully: "言語を正常に変更しました!"
+
+#Config_Dialog
+config_dialog: "コンフィグ"
+config_dialog_body: "コンフィグの設定一覧"
+dialog_confirm: "<aqua>確定</aqua>"
+dialog_confirm_desc: "クリックして確定する"
+dialog_cancel: "<red>キャンセル</red>"
+dialog_cancel_desc: "マインクラフトに戻る"
+#Adding_Dialog
+add_title_dialog: "称号追加"
+add_title_body: "各入力フォームに適切な値を入力してください。"
+add_title_input_wrong: "<red>入力された値が適切ではありませんでした。</red>"
+add_title_input_successfully: "新しい称号: <title> が正常に追加されました!"
+title_key_desc: "称号キー（必須）"
+title_name_desc: "称号の表示名（必須）"
+title_permission_desc: "称号に必要な権限（任意）"
+title_color_desc: "称号の色"
+title_is_admin: "この称号は管理者用ですか？"
+the_key_already_exist: "<red>その称号キーはすでに存在します。</red>"
+#Removing_Dialog
+remove_title_dialog: "称号削除"
+remove_title_body: "削除する称号を選んでください。"
+title_dialog_select: "<aqua>選択した称号</aqua>"
+remove_title_successfully: "選択した称号が正常に削除されました。"
+
+#InventoryGUI
+titles_inv_name: "称号選択"
+num_of_player_have_titles: "称号保有率："
+have_not_yet_title: "この称号はまだ持っていません。"
+inv_next_arrow: "次のページ"
+inv_pre_arrow: "前のページ"
+player_skull_name: "の称号"
+title_page: "ページ:"
+
+

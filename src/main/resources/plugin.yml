@@ -1,0 +1,10 @@
+name: PlayerTitlePrefix
+version: '1.0'
+main: me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix
+api-version: '1.21'
+
+commands:
+  playertitleprefix:
+    description: "PlayerTitlePrefix's command"
+    usage: /playertitleprefix <reload/change/config/lang>
+    aliases: [ptp]

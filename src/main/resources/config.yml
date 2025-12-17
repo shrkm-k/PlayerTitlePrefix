@@ -1,0 +1,13 @@
+language: en
+
+
+Titles:
+  Beginner:
+    name: "Beginner"
+    permission: "none"
+    color: yellow
+  Admin:
+    name: "Admin"
+    permission: "PlayerTitlePrefix.admin"
+    color: red
+    isAdmin: true
