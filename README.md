@@ -61,7 +61,7 @@ Titles:
     permission: "PlayerTitlePrefix.admin"
     color: red
     isAdmin: true
-
+```
 
 - `permission`: Permission required to unlock the title  
 - `isAdmin`: Marks the title as admin-only  
