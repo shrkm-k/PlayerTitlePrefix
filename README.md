@@ -63,7 +63,9 @@ Titles:
     isAdmin: true
 ```
 
-- `permission`: Permission required to unlock the title  
+- `name`: Display name of the title
+- `permission`: Permission required to unlock the title
+- `color`: Display color of the title  
 - `isAdmin`: Marks the title as admin-only  
 - Titles can be freely added or removed  
 
