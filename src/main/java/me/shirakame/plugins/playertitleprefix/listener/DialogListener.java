@@ -32,7 +32,7 @@ public class DialogListener implements Listener {
         TeamEditor team_editor = new TeamEditor(plugin);
         if(view == null)return;
 
-        //送信されたのが称号を変更する画面の情報の時の処理
+        //送信されたのが称号を追加する画面の情報の時の処理
         if(event.getIdentifier().equals(Key.key("playertitleprefix:add_title_confirm"))){
             String title_key = view.getText("title_key");
             String title_name = view.getText("title_name");

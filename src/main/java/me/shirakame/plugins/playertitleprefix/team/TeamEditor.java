@@ -23,7 +23,7 @@ public class TeamEditor {
     //コンフィグにある各種称号の初期設定を行う
     public void setupTeam(){
         var board = Bukkit.getScoreboardManager().getMainScoreboard();
-        //プラグインの起動時、マイクラ内に存在する古い称号を全て削除する
+
         ConfigurationSection config = plugin.getConfig().getConfigurationSection("Titles");
 
         if(!(config == null)) {
