@@ -1,8 +1,10 @@
 # PlayerTitlePrefix
 
-> A Paper plugin that allows players to earn, manage, and display titles before their names.  
+> A Paper plugin that allows players to earn, manage, and display titles before their names.
 
 ---
+
+![The image below shows an example of how titles are displayed .](https://cdn.modrinth.com/data/cached_images/4e47cbfe9857a83cd32581d43b4e9a274eb67902.png)
 
 ## ✨ Features
 
@@ -14,10 +16,10 @@
 ### 🔑 Permission-based Titles
 - Each title can have its own **permission**
 - Suitable for:
-  - Quest completion
-  - Item acquisition
-  - Achievements
-  - Rank progression
+    - Quest completion
+    - Item acquisition
+    - Achievements
+    - Rank progression
 
 ### 🛡 Admin-only Titles
 - Titles can be marked as **Admin-only**
@@ -65,22 +67,36 @@ Titles:
 
 - `name`: Display name of the title
 - `permission`: Permission required to unlock the title
-- `color`: Display color of the title  
-- `isAdmin`: Marks the title as admin-only  
-- Titles can be freely added or removed  
+- `color`: Display color of the title
+- `isAdmin`: Marks the title as admin-only
+- Titles can be freely added or removed
+
+---
+
+## 📜 Commands
+| Command                              | Permission | Description                                               |
+| ------------------------------------ | ---------- | --------------------------------------------------------- |
+| `/playertitleprefix reload`          | OP         | Reloads the config and language files                     |
+| `/playertitleprefix config`          | OP         | Opens a GUI to add or remove titles in-game               |
+| `/playertitleprefix lang <language>` | OP         | Changes the plugin language in-game (Default: `en`, `ja`) |
+| `/playertitleprefix change`          |    | Opens a GUI to view, equip, or unequip titles             |
+
+## 🔹 Alias
+
+- `/playertitleprefix` can also be used as `/ptp`
 
 ---
 
 ## 🎮 In-game GUI
 - Easy-to-use GUI for:
-  - Selecting titles
-  - Managing available titles
+    - Selecting titles
+    - Managing available titles
 - Designed to be understandable even for new players
 
 ---
 
 ## 🧩 Requirements
-- Paper 1.21+
+- Paper 1.21+ or Purpur 1.21+
 - Java 21+
 
 ---
