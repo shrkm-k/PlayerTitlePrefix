@@ -12,6 +12,7 @@
 - Display a **title before the player's name**
 - Players can **freely select** from the titles they own
 - Titles are defined in `config.yml`
+- Symbols before and after a title can change in `config.yml`
 
 ### 🔑 Permission-based Titles
 - Each title can have its own **permission**
