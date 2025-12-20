@@ -1,5 +1,7 @@
 language: en
 
+Symbol_before_Title: "【"
+Symbol_after_Title: "】"
 
 Titles:
   Beginner:

@@ -4,6 +4,7 @@ import me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix;
 import me.shirakame.plugins.playertitleprefix.dialogs.ConfigDialog;
 import me.shirakame.plugins.playertitleprefix.inventorygui.TitleGUIInvHolder;
 import me.shirakame.plugins.playertitleprefix.inventorygui.TitleInventoryGui;
+import me.shirakame.plugins.playertitleprefix.team.TeamEditor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
@@ -51,6 +52,8 @@ public class TitleCommands implements CommandExecutor {
                 }
                 plugin.reloadConfig();
                 plugin.lang().load(plugin.getConfig().getString("language", "en"));
+                TeamEditor teamEditor = new TeamEditor(plugin);
+                teamEditor.setupTeam();
                 sender.sendMessage(plugin.lang().get("plugin_name").append(plugin.lang().get("plugin_reload")));
                 break;
             case "change":
