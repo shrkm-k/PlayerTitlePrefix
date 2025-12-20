@@ -64,7 +64,7 @@ public class TitleCommands implements CommandExecutor {
                 }
                 TitleInventoryGui gui = new TitleInventoryGui(plugin);
                 TitleGUIInvHolder gui_holder = new TitleGUIInvHolder();
-                Inventory inv = null;
+                Inventory inv;
                 try {
                     inv = gui.createTitleInventory((Player) sender,gui_holder);
                 } catch (IOException e) {
