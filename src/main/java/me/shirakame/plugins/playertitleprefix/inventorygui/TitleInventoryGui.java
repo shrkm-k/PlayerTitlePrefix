@@ -2,13 +2,13 @@ package me.shirakame.plugins.playertitleprefix.inventorygui;
 
 import me.shirakame.plugins.playertitleprefix.data.PlayerTitleData;
 import me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix;
+import me.shirakame.plugins.playertitleprefix.filemanager.TitleFileManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -23,35 +23,11 @@ import java.util.*;
 public class TitleInventoryGui {
 
     private final PlayerTitlePrefix plugin;
-    private final Map<String, String> titleNames = new HashMap<>();
-    private final Map<String, String> titlePermissions = new HashMap<>();
-    private final Map<String, String> titleColors = new HashMap<>();
-    private final List<String> keys = new ArrayList<>();
-    private final List<String> admin_titles = new ArrayList<>();
-    private int admin_title_num = 0;
-    private final ConfigurationSection titles;
+    private final TitleFileManager TitleFileManager;
 
     public TitleInventoryGui(PlayerTitlePrefix plugin){
         this.plugin = plugin;
-        titles = plugin.getConfig().getConfigurationSection("Titles");
-        if(titles == null){
-            plugin.getLogger().warning("No Titles were found.");
-        }else if(titles.getKeys(false).isEmpty()){
-            plugin.getLogger().warning("No Titles were found.");
-        }else{
-            for (String key : titles.getKeys(false)) {
-                keys.add(key);
-                titleNames.put(key, titles.getString(key + ".name"));
-                titlePermissions.put(key, titles.getString(key + ".permission"));
-                titleColors.put(key, titles.getString(key + ".color"));
-                if(titles.getBoolean(key + ".isAdmin", false)){
-                    admin_title_num++;
-                    admin_titles.add(key);
-                }
-            }
-        }
-        keys.removeAll(admin_titles);
-        keys.addAll(admin_titles);
+        this.TitleFileManager = plugin.getTitleFileManager();
     }
 
     public void openInv(Player player, Inventory inv){
@@ -60,19 +36,19 @@ public class TitleInventoryGui {
 
     public Inventory createTitleInventory(Player player, TitleGUIInvHolder guiHolder) throws IOException {
 
-        if(keys.isEmpty()) return null;
+        if(TitleFileManager.getTitleKeys(false).isEmpty()) return null;
         Team now_team = Bukkit.getScoreboardManager().getMainScoreboard().getEntityTeam(player);
-        String now_player_title;
-        if(now_team == null){
-            now_player_title = null;
-        }else{
-            now_player_title = PlainTextComponentSerializer.plainText().serialize(now_team.prefix()).replace("【", "").replace("】", "");
-        }
+        String now_player_title = now_team == null ? null : PlainTextComponentSerializer.plainText().serialize(now_team.prefix()).replace("【", "").replace("】", "");
 
-        int titles_num = titleNames.size();
+        List<String> keys = TitleFileManager.getTitleKeys(false);
+        List<String> admin_titles = TitleFileManager.getTitleKeys(true);
+        Map<String, String> titleNames = TitleFileManager.getTitleMaps("name");
+        Map<String, String> titlePermissions = TitleFileManager.getTitleMaps("permission");
+        Map<String, String> titleColors = TitleFileManager.getTitleMaps("color");
         int player_have_title_num = 0;
-        Set<String> all_titles = titles.getKeys(false);
-        int max_title_num = all_titles.size() - admin_title_num;
+        int titles_num = keys.size();
+        int admin_title_num = TitleFileManager.getTitleKeys(true).size();
+        int max_title_num = titles_num - admin_title_num;
         List<String> have_titles = new ArrayList<>();
 
         Inventory inv = Bukkit.createInventory(guiHolder, 54, plugin.lang().get("titles_inv_name"));
@@ -110,7 +86,7 @@ public class TitleInventoryGui {
             }else if(i == 53 && titles_num > 28 + 28 * now_page){
                 inv.setItem(i, next_arrow);
             }else{
-                inv.setItem(i,black_stained_glass_pane);
+                inv.setItem(i, black_stained_glass_pane);
             }
         }
 
@@ -137,10 +113,7 @@ public class TitleInventoryGui {
         player_head.setItemMeta(phead_meta);
         inv.setItem(4,player_head);
 
-        ItemStack iron_block = new ItemStack(Material.IRON_BLOCK);
-        ItemMeta iron_block_meta = iron_block.getItemMeta();
-        iron_block_meta.customName(plugin.lang().get("title_page").append(Component.text(now_page+1, NamedTextColor.YELLOW)));
-        iron_block.setItemMeta(iron_block_meta);
+        ItemStack iron_block = create_item(Material.IRON_BLOCK, plugin.lang().get("title_page").append(Component.text(now_page+1, NamedTextColor.YELLOW)));
         inv.setItem(49, iron_block);
 
         PlayerTitleData data = new PlayerTitleData(plugin);
@@ -165,5 +138,4 @@ public class TitleInventoryGui {
         item.setItemMeta(meta);
         return item;
     }
-
 }

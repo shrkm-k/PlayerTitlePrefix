@@ -2,6 +2,7 @@ package me.shirakame.plugins.playertitleprefix;
 
 import me.shirakame.plugins.playertitleprefix.command.TitleCommandTabs;
 import me.shirakame.plugins.playertitleprefix.command.TitleCommands;
+import me.shirakame.plugins.playertitleprefix.filemanager.TitleFileManager;
 import me.shirakame.plugins.playertitleprefix.lang.LanguageManager;
 import me.shirakame.plugins.playertitleprefix.listener.DialogListener;
 import me.shirakame.plugins.playertitleprefix.listener.InventoryGuiListener;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public final class PlayerTitlePrefix extends JavaPlugin {
 
     private LanguageManager lang;
+    private TitleFileManager TitleFileManager;
 
     @Override
     public void onEnable() {
@@ -33,7 +35,7 @@ public final class PlayerTitlePrefix extends JavaPlugin {
         File langFolder = new File(getDataFolder(), "lang");
         if(!langFolder.exists() && !langFolder.mkdirs()){
             getLogger().warning(PlainTextComponentSerializer.plainText().serialize(lang().get("langFolder_create_failed")));
-        };
+        }
         for(String langName: languages){
             File langFiles = new File(getDataFolder(),"lang/" + langName + ".yml");
             if(!langFiles.exists()){
@@ -43,13 +45,12 @@ public final class PlayerTitlePrefix extends JavaPlugin {
 
         //プレイヤーの称号データファイルの作成
         File data_folder = new File(getDataFolder(),"data");
-        if(!data_folder.exists()){
-            if(!data_folder.mkdirs()){
-                getLogger().warning("data folder can't create.");
-            }else{
-                getLogger().info("data folder was successfully created.");
-            }
+        if(!data_folder.exists() && !data_folder.mkdirs()){
+            getLogger().warning("data folder can't create.");
         }
+
+        TitleFileManager = new TitleFileManager(this);
+        TitleFileManager.loadTitleConfig();
 
         //翻訳の初期設定
         lang = new LanguageManager(this);
@@ -80,5 +81,8 @@ public final class PlayerTitlePrefix extends JavaPlugin {
         return lang;
     }
 
+    public TitleFileManager getTitleFileManager(){
+        return TitleFileManager;
+    }
 
 }
