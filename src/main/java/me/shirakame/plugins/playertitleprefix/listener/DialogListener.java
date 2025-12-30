@@ -4,7 +4,6 @@ import io.papermc.paper.connection.PlayerGameConnection;
 import io.papermc.paper.dialog.DialogResponseView;
 import io.papermc.paper.event.player.PlayerCustomClickEvent;
 import me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix;
-import me.shirakame.plugins.playertitleprefix.team.TeamEditor;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
