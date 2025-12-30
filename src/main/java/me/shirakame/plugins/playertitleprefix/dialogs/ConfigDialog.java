@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 //コンフィグのダイアログに関するクラス
 public class ConfigDialog {
@@ -121,11 +122,12 @@ public class ConfigDialog {
 
     //称号削除の画面のダイアログを作成する
     private Dialog createRemoveTitleDialog(){
-        ConfigurationSection titles = plugin.getConfig().getConfigurationSection("Titles");
+        List<String> titles = plugin.getTitleFileManager().getTitleKeys(false);
+        Map<String, String> names = plugin.getTitleFileManager().getTitleMaps("name");
         List<SingleOptionDialogInput.OptionEntry> title_names = new ArrayList<>();
 
-        for (String key : titles.getKeys(false)) {
-            title_names.add(SingleOptionDialogInput.OptionEntry.create(key, Component.text(titles.getString(key + ".name")), false));
+        for (String key : titles) {
+            title_names.add(SingleOptionDialogInput.OptionEntry.create(key, Component.text(names.get(key)), false));
         }
 
         return Dialog.create(builder -> builder.empty()

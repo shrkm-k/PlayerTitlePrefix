@@ -36,7 +36,21 @@ public class TitleInventoryGui {
 
     public Inventory createTitleInventory(Player player, TitleGUIInvHolder guiHolder) throws IOException {
 
-        if(TitleFileManager.getTitleKeys(false).isEmpty()) return null;
+        Inventory inv = Bukkit.createInventory(guiHolder, 54, plugin.lang().get("titles_inv_name"));
+        ItemStack black_stained_glass_pane = create_item(Material.BLACK_STAINED_GLASS_PANE, Component.text(""));
+
+        PlayerTitleData data = new PlayerTitleData(plugin);
+
+        if(TitleFileManager.getTitleKeys(false).isEmpty()){
+            ItemStack oak_sign = create_item(Material.OAK_SIGN, plugin.lang().get("no_exist_title"));
+            for(int i = 0; i < inv.getSize(); i++){
+                if(i == 4) inv.setItem(i, oak_sign);
+                else inv.setItem(i, black_stained_glass_pane);
+            }
+            data.savePlayerTitleData(player.getUniqueId(), player.getName(), 0.0, new ArrayList<>());
+            return inv;
+        }
+
         Team now_team = Bukkit.getScoreboardManager().getMainScoreboard().getEntityTeam(player);
         String now_player_title = now_team == null ? null : PlainTextComponentSerializer.plainText().serialize(now_team.prefix()).replace("【", "").replace("】", "");
 
@@ -51,9 +65,6 @@ public class TitleInventoryGui {
         int max_title_num = titles_num - admin_title_num;
         List<String> have_titles = new ArrayList<>();
 
-        Inventory inv = Bukkit.createInventory(guiHolder, 54, plugin.lang().get("titles_inv_name"));
-
-        ItemStack black_stained_glass_pane = create_item(Material.BLACK_STAINED_GLASS_PANE, Component.text(""));
         ItemStack pre_arrow = create_item(Material.ARROW, plugin.lang().get("inv_pre_arrow"), "pre");
         ItemStack next_arrow = create_item(Material.ARROW, plugin.lang().get("inv_next_arrow"), "next");
 
@@ -116,7 +127,7 @@ public class TitleInventoryGui {
         ItemStack iron_block = create_item(Material.IRON_BLOCK, plugin.lang().get("title_page").append(Component.text(now_page+1, NamedTextColor.YELLOW)));
         inv.setItem(49, iron_block);
 
-        PlayerTitleData data = new PlayerTitleData(plugin);
+        //プレイヤーの称号データの保存
         data.savePlayerTitleData(player.getUniqueId(), player.getName(), have_title_percent_num, have_titles);
         return inv;
     }

@@ -42,5 +42,6 @@ inv_next_arrow: "次のページ"
 inv_pre_arrow: "前のページ"
 player_skull_name: "の称号"
 title_page: "ページ:"
+no_exist_title: "このサーバーは称号を設定していません。"
 
 

@@ -18,13 +18,13 @@ public class TitleFileManager {
     }
 
     public void loadTitleConfig(){
+        initialFields();
+
         ConfigurationSection titles = plugin.getConfig().getConfigurationSection("Titles");
         if(titles == null || titles.getKeys(false).isEmpty()){
             plugin.getLogger().warning("No Titles were found.");
             return;
         }
-
-        initialFields();
 
         for(String key: titles.getKeys(false)){
             keys.add(key);

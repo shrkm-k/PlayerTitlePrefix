@@ -57,7 +57,8 @@ public class DialogListener implements Listener {
                     plugin.getConfig().set("Titles." + title_key + ".isAdmin", title_is_admin);
                     plugin.saveConfig();
                     plugin.getTitleFileManager().loadTitleConfig();
-                    team_editor.createTeam(title_key);
+                    plugin.getTeamEditor().loadTitlesData();
+                    plugin.getTeamEditor().createTeam(title_key);
                     Component msg = plugin.lang().get("plugin_name").append(plugin.lang().get("add_title_input_successfully"));
                     msg = msg.replaceText(builder -> builder.matchLiteral("<title>").replacement(Component.text(title_name, NamedTextColor.NAMES.value(title_color))));
                     player.sendMessage(msg);
@@ -74,8 +75,8 @@ public class DialogListener implements Listener {
                     plugin.getConfig().set("Titles." + key, null);
                     plugin.saveConfig();
                     plugin.getTitleFileManager().loadTitleConfig();
-                    Team team = Bukkit.getScoreboardManager().getMainScoreboard().getTeam("ptp_" + key);
-                    Objects.requireNonNull(team).unregister();
+                    plugin.getTeamEditor().loadTitlesData();
+                    plugin.getTeamEditor().removeTeam(key);
                     player.sendMessage(plugin.lang().get("plugin_name").append(plugin.lang().get("remove_title_successfully")));
                 }
             }

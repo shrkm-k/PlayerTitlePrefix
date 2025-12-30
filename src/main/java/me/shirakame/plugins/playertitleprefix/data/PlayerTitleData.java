@@ -51,5 +51,4 @@ public class PlayerTitleData {
         data.set("Titles", have_titles);
         data.save(save_file);
     }
-
 }

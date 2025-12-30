@@ -20,15 +20,13 @@ public final class PlayerTitlePrefix extends JavaPlugin {
 
     private LanguageManager lang;
     private TitleFileManager TitleFileManager;
+    private TeamEditor TeamEditor;
 
     @Override
     public void onEnable() {
 
         //Configをロード。ない場合は生成。
         saveDefaultConfig();
-        //称号の初期設定
-        TeamEditor team_editor = new TeamEditor(this);
-        team_editor.setupTeam();
 
         //言語ファイルの初期設定
         String[] languages = {"en", "ja"};
@@ -55,6 +53,10 @@ public final class PlayerTitlePrefix extends JavaPlugin {
         //翻訳の初期設定
         lang = new LanguageManager(this);
         lang.load(getConfig().getString("language","en"));
+
+        //称号の初期設定
+        TeamEditor = new TeamEditor(this);
+        TeamEditor.setupTeam();
 
         //コマンドを読み込み。
         PluginCommand cmd = Objects.requireNonNull(getCommand("playertitleprefix"));
@@ -83,6 +85,10 @@ public final class PlayerTitlePrefix extends JavaPlugin {
 
     public TitleFileManager getTitleFileManager(){
         return TitleFileManager;
+    }
+
+    public TeamEditor getTeamEditor(){
+        return TeamEditor;
     }
 
 }

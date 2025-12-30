@@ -46,7 +46,7 @@ public class InventoryGuiListener implements Listener {
 
             ItemMeta clicked_item_meta = clicked_item.getItemMeta();
             NamespacedKey key_id = new NamespacedKey(plugin, "title_key");
-            TeamEditor team = new TeamEditor(plugin);
+            TeamEditor team = plugin.getTeamEditor();
 
             int now_page = holder.getNowPage();
 

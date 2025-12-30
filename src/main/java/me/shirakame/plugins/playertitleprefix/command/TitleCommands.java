@@ -53,8 +53,7 @@ public class TitleCommands implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.lang().load(plugin.getConfig().getString("language", "en"));
                 plugin.getTitleFileManager().loadTitleConfig();
-                TeamEditor teamEditor = new TeamEditor(plugin);
-                teamEditor.setupTeam();
+                plugin.getTeamEditor().setupTeam();
                 sender.sendMessage(plugin.lang().get("plugin_name").append(plugin.lang().get("plugin_reload")));
                 break;
             case "change":
