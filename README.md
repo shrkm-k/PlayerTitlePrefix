@@ -58,6 +58,7 @@ Titles:
     name: "Beginner"
     permission: "none"
     color: yellow
+    isAdmin: false
 
   Admin:
     name: "Admin"
