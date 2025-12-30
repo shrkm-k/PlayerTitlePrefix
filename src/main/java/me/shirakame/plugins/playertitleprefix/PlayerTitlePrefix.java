@@ -2,6 +2,7 @@ package me.shirakame.plugins.playertitleprefix;
 
 import me.shirakame.plugins.playertitleprefix.command.TitleCommandTabs;
 import me.shirakame.plugins.playertitleprefix.command.TitleCommands;
+import me.shirakame.plugins.playertitleprefix.filemanager.LangFileManager;
 import me.shirakame.plugins.playertitleprefix.filemanager.TitleFileManager;
 import me.shirakame.plugins.playertitleprefix.lang.LanguageManager;
 import me.shirakame.plugins.playertitleprefix.listener.DialogListener;
@@ -20,6 +21,7 @@ public final class PlayerTitlePrefix extends JavaPlugin {
 
     private LanguageManager lang;
     private TitleFileManager TitleFileManager;
+    private LangFileManager LangFileManager;
     private TeamEditor TeamEditor;
 
     @Override
@@ -29,17 +31,8 @@ public final class PlayerTitlePrefix extends JavaPlugin {
         saveDefaultConfig();
 
         //言語ファイルの初期設定
-        String[] languages = {"en", "ja"};
-        File langFolder = new File(getDataFolder(), "lang");
-        if(!langFolder.exists() && !langFolder.mkdirs()){
-            getLogger().warning(PlainTextComponentSerializer.plainText().serialize(lang().get("langFolder_create_failed")));
-        }
-        for(String langName: languages){
-            File langFiles = new File(getDataFolder(),"lang/" + langName + ".yml");
-            if(!langFiles.exists()){
-                saveResource("lang/" + langName + ".yml", false);
-            }
-        }
+        LangFileManager = new LangFileManager(this);
+        LangFileManager.loadLangFiles();
 
         //プレイヤーの称号データファイルの作成
         File data_folder = new File(getDataFolder(),"data");
@@ -47,6 +40,7 @@ public final class PlayerTitlePrefix extends JavaPlugin {
             getLogger().warning("data folder can't create.");
         }
 
+        //称号データの初期設定
         TitleFileManager = new TitleFileManager(this);
         TitleFileManager.loadTitleConfig();
 
@@ -54,7 +48,7 @@ public final class PlayerTitlePrefix extends JavaPlugin {
         lang = new LanguageManager(this);
         lang.load(getConfig().getString("language","en"));
 
-        //称号の初期設定
+        //チームの初期設定
         TeamEditor = new TeamEditor(this);
         TeamEditor.setupTeam();
 
@@ -89,6 +83,10 @@ public final class PlayerTitlePrefix extends JavaPlugin {
 
     public TeamEditor getTeamEditor(){
         return TeamEditor;
+    }
+
+    public LangFileManager getLangFileManager(){
+        return LangFileManager;
     }
 
 }

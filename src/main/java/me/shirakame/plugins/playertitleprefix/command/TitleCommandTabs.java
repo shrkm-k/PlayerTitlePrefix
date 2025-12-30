@@ -24,19 +24,7 @@ public class TitleCommandTabs implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String string, String[] args){
 
-        File langFolder = new File(plugin.getDataFolder(), "lang");
-        List<String> langFiles = new ArrayList<>();
-
-        if(langFolder.exists()){
-            File[] files = langFolder.listFiles(((dir, name) -> name.endsWith(".yml")));
-            if(files != null){
-                for(File file: files){
-                    langFiles.add(file.getName().replace(".yml", ""));
-                }
-            }
-        }else{
-            langFiles = Arrays.asList("en", "ja");
-        }
+        List<String> langFiles = plugin.getLangFileManager().getLangFiles();
 
         if(args.length == 1){
             return prefixFilter(args[0], Arrays.asList("reload", "change", "config", "lang"));
