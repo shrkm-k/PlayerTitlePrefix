@@ -88,11 +88,7 @@ public class TitleCommands implements CommandExecutor {
                 //言語設定を変更するコマンド
                 //コマンドを管理者のみ使用可能にする。
                 if(!(sender.isOp())) return true;
-                if(args.length < 2){
-                    sender.sendMessage(plugin.lang().get("plugin_name").append(plugin.lang().get("wrong_args")));
-                    return true;
-                }
-                if(args.length > 2){
+                if(args.length != 2){
                     sender.sendMessage(plugin.lang().get("plugin_name").append(plugin.lang().get("wrong_args")));
                     return true;
                 }
