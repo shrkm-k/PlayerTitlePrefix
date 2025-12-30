@@ -8,12 +8,10 @@ import me.shirakame.plugins.playertitleprefix.team.TeamEditor;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scoreboard.Team;
 
 import java.util.Objects;
 
@@ -29,7 +27,6 @@ public class DialogListener implements Listener {
     @EventHandler
     public void DialogResponse(PlayerCustomClickEvent event){
         DialogResponseView view = event.getDialogResponseView();
-        TeamEditor team_editor = new TeamEditor(plugin);
         if(view == null)return;
 
         //送信されたのが称号を追加する画面の情報の時の処理

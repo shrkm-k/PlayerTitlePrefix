@@ -4,7 +4,6 @@ import me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix;
 import me.shirakame.plugins.playertitleprefix.dialogs.ConfigDialog;
 import me.shirakame.plugins.playertitleprefix.inventorygui.TitleGUIInvHolder;
 import me.shirakame.plugins.playertitleprefix.inventorygui.TitleInventoryGui;
-import me.shirakame.plugins.playertitleprefix.team.TeamEditor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
