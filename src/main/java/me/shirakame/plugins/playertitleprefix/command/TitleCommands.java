@@ -13,8 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
 //このプラグインに関するコマンドをまとめたクラス
 public class TitleCommands implements CommandExecutor {
 
@@ -64,12 +62,7 @@ public class TitleCommands implements CommandExecutor {
                 }
                 TitleInventoryGui gui = new TitleInventoryGui(plugin);
                 TitleGUIInvHolder gui_holder = new TitleGUIInvHolder();
-                Inventory inv;
-                try {
-                    inv = gui.createTitleInventory((Player) sender,gui_holder);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Inventory inv = gui.createTitleInventory((Player) sender, gui_holder);
                 gui.openInv((Player) sender, inv);
                 break;
             case "config":

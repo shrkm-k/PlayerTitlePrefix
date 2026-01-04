@@ -1,7 +1,8 @@
 package me.shirakame.plugins.playertitleprefix.inventorygui;
 
-import me.shirakame.plugins.playertitleprefix.data.PlayerTitleData;
 import me.shirakame.plugins.playertitleprefix.PlayerTitlePrefix;
+import me.shirakame.plugins.playertitleprefix.data.PlayerTitleData;
+import me.shirakame.plugins.playertitleprefix.data.PlayerTitleDataRecord;
 import me.shirakame.plugins.playertitleprefix.filemanager.TitleFileManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -17,29 +18,28 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scoreboard.Team;
 
-import java.io.IOException;
 import java.util.*;
 
 public class TitleInventoryGui {
 
     private final PlayerTitlePrefix plugin;
     private final TitleFileManager TitleFileManager;
+    private final PlayerTitleData playerTitleData;
 
     public TitleInventoryGui(PlayerTitlePrefix plugin){
         this.plugin = plugin;
         this.TitleFileManager = plugin.getTitleFileManager();
+        this.playerTitleData = new PlayerTitleData(plugin);
     }
 
     public void openInv(Player player, Inventory inv){
         player.openInventory(inv);
     }
 
-    public Inventory createTitleInventory(Player player, TitleGUIInvHolder guiHolder) throws IOException {
+    public Inventory createTitleInventory(Player player, TitleGUIInvHolder guiHolder){
 
         Inventory inv = Bukkit.createInventory(guiHolder, 54, plugin.lang().get("titles_inv_name"));
         ItemStack black_stained_glass_pane = create_item(Material.BLACK_STAINED_GLASS_PANE, Component.text(""));
-
-        PlayerTitleData data = new PlayerTitleData(plugin);
 
         if(TitleFileManager.getTitleKeys(false).isEmpty()){
             ItemStack oak_sign = create_item(Material.OAK_SIGN, plugin.lang().get("no_exist_title"));
@@ -47,7 +47,9 @@ public class TitleInventoryGui {
                 if(i == 4) inv.setItem(i, oak_sign);
                 else inv.setItem(i, black_stained_glass_pane);
             }
-            data.savePlayerTitleData(player.getUniqueId(), player.getName(), 0.0, new ArrayList<>());
+
+            PlayerTitleDataRecord data = new PlayerTitleDataRecord(player.getUniqueId(), player.getName(), 0.0, new ArrayList<>());
+            saveAsync(data);
             return inv;
         }
 
@@ -109,15 +111,14 @@ public class TitleInventoryGui {
         }
 
         if(player.isOp()) player_have_title_num -= admin_title_num;
-        Double have_title_percent_num = Math.floor((10f * player_have_title_num / max_title_num)*10f);
-        String have_title_percent = String.format("%.1f", have_title_percent_num);
+        double have_title_percent_num = Math.floor(((double) player_have_title_num / max_title_num) * 1000) / 10.0;
         String num_of_have_titles = String.format("%d", player_have_title_num);
         String max_title = String.format("%d", max_title_num);
 
         ItemStack player_head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta phead_meta = (SkullMeta) player_head.getItemMeta();
         List<Component> phead_lore = new ArrayList<>();
-        phead_lore.add(plugin.lang().get("num_of_player_have_titles").append(Component.text(" " + have_title_percent + "% (" + num_of_have_titles + " / " + max_title + ")")));
+        phead_lore.add(plugin.lang().get("num_of_player_have_titles").append(Component.text(" " + have_title_percent_num + "% (" + num_of_have_titles + " / " + max_title + ")")));
         phead_meta.setOwningPlayer(player);
         phead_meta.customName(Component.text(player.getName()).append(plugin.lang().get("player_skull_name")));
         phead_meta.lore(phead_lore);
@@ -127,8 +128,9 @@ public class TitleInventoryGui {
         ItemStack iron_block = create_item(Material.IRON_BLOCK, plugin.lang().get("title_page").append(Component.text(now_page+1, NamedTextColor.YELLOW)));
         inv.setItem(49, iron_block);
 
-        //プレイヤーの称号データの保存
-        data.savePlayerTitleData(player.getUniqueId(), player.getName(), have_title_percent_num, have_titles);
+        PlayerTitleDataRecord data = new PlayerTitleDataRecord(player.getUniqueId(), player.getName(), have_title_percent_num, have_titles);
+        saveAsync(data);
+
         return inv;
     }
 
@@ -148,5 +150,9 @@ public class TitleInventoryGui {
         meta.getPersistentDataContainer().set(nsk, PersistentDataType.STRING, key);
         item.setItemMeta(meta);
         return item;
+    }
+
+    private void saveAsync(PlayerTitleDataRecord record){
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> playerTitleData.savePlayerTitleData(record.uuid(), record.name(), record.percent(), record.titles()));
     }
 }
